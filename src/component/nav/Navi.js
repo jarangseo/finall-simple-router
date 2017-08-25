@@ -1,14 +1,29 @@
-import React from 'react';
+import React, {Component} from 'react';
+import NaviItem from './NaviItem';
 
-const Navi = () => {
-    return (
-        <ul className="nav nav-tabs" role="tablist">
-            <li><a>Home</a></li>
-            <li><a>Posts</a></li>
-            <li><a>Photos</a></li>
-            <li><a>Users</a></li>
-        </ul>
-    )
+class Navi extends Component {
+    render() {
+        const {naviData, naviIndex, onNaviClick} = this.props;
+
+        let naviItem = naviData.map((item, i) => {
+            let active = i === naviIndex,
+                classes = active ? 'active ' : '';
+
+            return(
+                <li key={i.toString()} className={`${classes}`}>
+                    <a onClick={onNaviClick.bind(this,i)}>
+                        {item}
+                    </a>
+                </li>
+            );
+        });
+
+        return (
+            <ul className="nav nav-tabs" role="tablist">
+                {naviItem}
+            </ul>
+        )
+    }
 };
 
 export default Navi;
